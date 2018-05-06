@@ -32,7 +32,7 @@
 
 import numpy, imageio, glob, sys, os, random
 
-def get_labels_and_files(folder, number):
+def get_labels_and_files(folder):
   # Make a list of lists of files for each label
   filelists = []
   for label in range(0,10):
@@ -46,16 +46,12 @@ def get_labels_and_files(folder, number):
           filelist.append(fullname)
         else:
           print('file ' + fullname + ' is empty')
-    # sort each list of files so they start off in the same order
-    # regardless of how the order the OS returns them in
-    filelist.sort()
 
-  # Take the specified number of items for each label and
   # build them into an array of (label, filename) pairs
   # Since we seeded the RNG, we should get the same sample each run
   labelsAndFiles = []
   for label in range(0,10):
-    filelist = random.sample(filelists[label], number)
+    filelist = filelists[label]
     for filename in filelist:
       labelsAndFiles.append((label, filename))
 
@@ -109,11 +105,12 @@ def main(argv):
   # specific data files in this repo.
   # random.seed(int("notMNIST", 36))
 
-  labelsAndFiles = get_labels_and_files(argv[1], int(argv[2]))
-  random.shuffle(labelsAndFiles)
+  labelsAndFiles = get_labels_and_files(argv[1])
   imagedata, labeldata = make_arrays(labelsAndFiles)
-  write_labeldata(labeldata, argv[3])
-  write_imagedata(imagedata, argv[4])
+  np.save("image_data", imagedata)
+  np.save("label_data", labeldata)
+  #write_labeldata(labeldata, argv[3])
+  #write_imagedata(imagedata, argv[4])
 
 if __name__=='__main__':
   main(sys.argv)
