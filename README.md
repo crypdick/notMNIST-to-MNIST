@@ -40,25 +40,15 @@ particularly large, but unpacking them can take a long time
 because there are well over 500,000 individual image files.
 
 ```sh
-curl -o notMNIST_small.tar.gz http://yaroslavvb.com/upload/notMNIST/notMNIST_mall.tar.gz
-curl -o notMNIST_large.tar.gz http://yaroslavvb.com/upload/notMNIST/notMNIST_arge.tar.gz
+curl -o notMNIST_small.tar.gz http://yaroslavvb.com/upload/notMNIST/notMNIST_small.tar.gz
 tar xzf notMNIST_small.tar.gz
-tar xzf notMNIST_large.tar.gz
 ```
 
 3) Finally, run this script to convert the data to MNIST files in your
 data/ directory and compress them:
 
 ```sh
-python convert_to_mnist_format.py notMNIST_small 1000 data/t10k-labels-idx1-uyte data/t10k-images-idx3-ubyte
-python convert_to_mnist_format.py notMNIST_large 6000 data/train-labels-idx1-byte data/train-images-idx3-ubyte
-gzip data/*ubyte
+python convert_to_mnist_format.py notMNIST_small 
 ```
 
-The first command line above says that the test files should include
-1000 entries for each of the 10 letters, and that the training files
-should include 6000 entries for each of the 10 letters. This matches
-the size of the MNIST files.  notMNIST is significantly bigger than
-MNIST, however, and you can probably use numbers as large as 1800 for
-the test files and 50000 for the training files.
-
+This will create a few .npy archives

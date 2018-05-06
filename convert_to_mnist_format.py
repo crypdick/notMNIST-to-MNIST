@@ -107,8 +107,8 @@ def main(argv):
 
   labelsAndFiles = get_labels_and_files(argv[1])
   imagedata, labeldata = make_arrays(labelsAndFiles)
-  np.save("image_data", imagedata)
-  np.save("label_data", labeldata)
+  numpy.save("image_data", imagedata)
+  numpy.save("label_data", labeldata)
   #write_labeldata(labeldata, argv[3])
   #write_imagedata(imagedata, argv[4])
 
