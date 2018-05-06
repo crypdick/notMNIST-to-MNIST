@@ -83,20 +83,8 @@ def make_arrays(labelsAndFiles):
     imagedata[i] = images[i]
     labeldata[i] = labels[i]
   print("\n")
-  return imagedata, labeldata
-
-def write_labeldata(labeldata, outputfile):
-  header = numpy.array([0x0801, len(labeldata)], dtype='>i4')
-  with open(outputfile, "wb") as f:
-    f.write(header.tobytes())
-    f.write(labeldata.tobytes())
-
-def write_imagedata(imagedata, outputfile):
-  header = numpy.array([0x0803, len(imagedata), 28, 28], dtype='>i4')
-  with open(outputfile, "wb") as f:
-    f.write(header.tobytes())
-    f.write(imagedata.tobytes())
-    
+  numpy.save("image_data", imagedata)
+  numpy.save("label_data", labeldata)
 
 
 def main(argv):
@@ -106,11 +94,7 @@ def main(argv):
   # random.seed(int("notMNIST", 36))
 
   labelsAndFiles = get_labels_and_files(argv[1])
-  imagedata, labeldata = make_arrays(labelsAndFiles)
-  numpy.save("image_data", imagedata)
-  numpy.save("label_data", labeldata)
-  #write_labeldata(labeldata, argv[3])
-  #write_imagedata(imagedata, argv[4])
+  make_arrays(labelsAndFiles)
 
 if __name__=='__main__':
   main(sys.argv)
